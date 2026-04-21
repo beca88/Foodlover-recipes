@@ -1,0 +1,25 @@
+/* Reset */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* Base */
+body {
+  margin: 0;
+  font-family: 'Lato', sans-serif;
+  background: #0d0d0d;
+  color: #f0ede6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Root */
+#root {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Global media queries */
+@media (max-width: 680px) {
+  .nav { display: none; }
+  .footer-top { flex-direction: column; gap: 2.5rem; }
+}

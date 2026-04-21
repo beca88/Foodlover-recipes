@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@400;600&display=swap');
+
+/* ── Reset ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── Variables ─────────────────────────────────────── */
+:root {
+  --bg: #0d0d0d;
+  --text: #f0ede6;
+  --text-muted: #888;
+  --accent: #FE938C;
+  --border: rgba(255,255,255,0.07);
+  --border-hover: rgba(255,255,255,0.14);
+  --radius: 10px;
+  --font-display: 'Playfair Display', serif;
+  --font-body: 'Lato', sans-serif;
+}
+
+
+
+a { text-decoration: none; color: inherit; }
+
+/* ── Page layout ───────────────────────────────────── */
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main { flex: 1; }
+
+/* ── Header ────────────────────────────────────────── */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #FE938C;
+  border-bottom: 1px solid var(--border);
+  width:100%;
+}
+
+.header-inner {
+   max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+
+/* ── Logo ──────────────────────────────────────────── */
+.logo { display: flex; align-items: center; }
+
+.logo-text {
+  font-family: 'Pacifico', cursive;
+  font-size: 22px;
+  color: #fff;
+}
+
+/* ── Nav ───────────────────────────────────────────── */
+.nav {
+  display: flex;
+  gap: 2rem;
+  margin-left: auto;
+  align-items: flex-end;
+}
+
+.nav-link {
+  font-size: 16px;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: color 0.15s, background 0.15s;
+}
+
+.nav-link--home { font-weight: bold; }
+
+.nav-link:hover {
+  color: #ffffff;
+  background: rgba(255,255,255,0.15);
+}
+
+/* ── Search ────────────────────────────────────────── */
+.search-form {
+  display: flex;
+  align-items: center;
+  border: 1px solid rgba(255,255,255,0.4);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.search-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 6px 12px;
+  font-size: 13.5px;
+  color: #fff;
+  width: 200px;
+}
+
+.search-input::placeholder { color: rgba(255,255,255,0.6); }
+
+.search-btn {
+  background: transparent;
+  border: none;
+  border-left: 1px solid rgba(255,255,255,0.4);
+  padding: 6px 10px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.15s;
+}
+
+.search-btn:hover { background: rgba(255,255,255,0.15); }
