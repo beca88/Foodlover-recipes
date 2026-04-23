@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 import SearchResults from "./components/pages/SearchResults";
 import RecipeDetail from "./components/pages/RecipeDetail";
 import "./App.css";
@@ -16,6 +17,7 @@ function App() {
             <Route path="/recipe/:id" element={<RecipeDetail />} />
           </Routes>
         </main>
+        <Footer />
       </div>
     </BrowserRouter>
     

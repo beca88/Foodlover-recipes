@@ -18,7 +18,7 @@ export default function Header() {
 
         {/* Logo - left */}
         <a href="/" className="logo">
-          <span className="logo-text">Foodlover Recipes</span>
+          <span className="logo-text">🍴 Foodlover Recipes</span>
         </a>
 
         {/* Nav - right */}
