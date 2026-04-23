@@ -1,12 +1,14 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Header() {
   const [query, setQuery] = useState("");
+  const navigate = useNavigate();
 
   function handleSearch(e) {
     e.preventDefault();
     if (query.trim()) {
-      window.location.href = `/search?q=${encodeURIComponent(query.trim())}`;
+     navigate(`/search?q=${encodeURIComponent(query.trim())}`);
     }
   }
 
@@ -16,13 +18,12 @@ export default function Header() {
 
         {/* Logo - left */}
         <a href="/" className="logo">
-          <span className="logo-mark">◆</span>
           <span className="logo-text">Foodlover Recipes</span>
         </a>
 
         {/* Nav - right */}
         <nav className="nav">
-          <a href="/" className="nav-link">Home</a>
+          <a href="/" className="nav-link nav-link--home">Home</a>
 
           <form onSubmit={handleSearch} className="search-form">
             <input
