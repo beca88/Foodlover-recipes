@@ -108,6 +108,102 @@ a { text-decoration: none; color: inherit; }
 
 .search-btn:hover { background: rgba(255,255,255,0.15); }
 
+/* ── Home ──────────────────────────────────────────── */
+.home {
+  max-width: 1100px;
+  margin: 0 auto;
+  
+}
+
+/* ── Hero / Greeting ───────────────────────────────── */
+.hero {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: #1a1a1a;
+  margin-bottom: 1rem;
+  border-radius: var(--radius);
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 1rem;
+}
+
+.hero-tagline {
+  font-size: 18px;
+  color: var(--text-muted);
+}
+
+/* ── Browse sections ───────────────────────────────── */
+.browse-section {
+  margin-bottom: 2.5rem;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: 20px;
+  color: var(--text);
+}
+
+.section-tag {
+  font-size: 12px;
+  padding: 4px 12px;
+  background: rgba(254, 147, 140, 0.15);
+  color: #FE938C;
+  border: 1px solid rgba(254, 147, 140, 0.3);
+  border-radius: 99px;
+}
+
+/* ── Browse grid ───────────────────────────────────── */
+.browse-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 1rem;
+}
+
+.browse-card {
+  background: #1a1a1a;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem 1rem;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.browse-card:hover {
+  transform: translateY(-4px);
+  border-color: #FE938C;
+}
+
+.browse-card-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.browse-card-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* ── Divider ───────────────────────────────────────── */
+.divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 1rem 0 2.5rem;
+}
+
 /* ── Results page ──────────────────────────────────── */
 .results-page { padding: 2rem; max-width: 1100px; margin: 0 auto; }
 .results-title { font-family: var(--font-display); margin-bottom: 1.5rem; color: var(--text); }
