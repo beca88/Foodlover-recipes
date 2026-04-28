@@ -1,18 +1,30 @@
-export default function Home() {
- const areas = [
-  { name: "Asian", emoji: "🍜" },
-  { name: "Italian", emoji: "🍕" }, 
-  { name: "Japanese", emoji: "🍣" },
-  { name: "Western", emoji: "🥩" },
-];
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const ingredients = [
-  { name: "Beef", emoji: "🥩" },
-  { name: "Chicken", emoji: "🍗" },  
-  { name: "Pork", emoji: "🍖" },
-  { name: "Seafood", emoji: "🦐" },
-];
-  
+export default function Home() {
+  const [query, setQuery] = useState("");
+  const navigate = useNavigate();
+
+  function handleSearch(e) {
+    e.preventDefault();
+    if (query.trim()) {
+      navigate(`/search?q=${encodeURIComponent(query.trim())}`);
+    }
+  }
+
+  const areas = [
+    { name: "Asian", emoji: "🍜" },
+    { name: "Italian", emoji: "🍕" },
+    { name: "Japanese", emoji: "🍣" },
+    { name: "Western", emoji: "🥩" },
+  ];
+
+  const ingredients = [
+    { name: "Beef", emoji: "🥩" },
+    { name: "Chicken", emoji: "🍗" },
+    { name: "Pork", emoji: "🍖" },
+    { name: "Seafood", emoji: "🦐" },
+  ];
 
   const vegetarian = [
     { name: "Salad", emoji: "🥗" },
@@ -23,15 +35,29 @@ const ingredients = [
   return (
     <div className="home">
 
-      {/* ── Greeting / Hero ─────────────────────────── */}
+      {/* ── Hero ──────────────────────────────────── */}
       <section className="hero">
-        <h1 className="hero-title">Welcome to FoodLover Recipes!</h1>
+        <h1 className="hero-title">
+          Discover <span>Delicious</span> Recipes
+        </h1>
         <p className="hero-tagline">
-          Discover delicious recipes from around the world 🌍
+          Search from thousands of recipes around the world 🌍
         </p>
+
+        {/* Hero search bar */}
+        <form onSubmit={handleSearch} className="hero-search-form">
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search for a recipe e.g. Chicken..."
+            className="hero-search-input"
+          />
+          <button type="submit" className="hero-search-btn">Search</button>
+        </form>
       </section>
 
-      {/* ── Browse by Area ──────────────────────────── */}
+      {/* ── Browse by Area ──────────────────────── */}
       <section className="browse-section">
         <div className="section-header">
           <h2 className="section-title">Browse by Area</h2>
@@ -49,7 +75,7 @@ const ingredients = [
 
       <div className="divider" />
 
-      {/* ── Browse by Ingredient ────────────────────── */}
+      {/* ── Browse by Ingredient ─────────────────── */}
       <section className="browse-section">
         <div className="section-header">
           <h2 className="section-title">Browse by Ingredient</h2>
@@ -67,10 +93,10 @@ const ingredients = [
 
       <div className="divider" />
 
-      {/* ── Browse by Meal Type ────────────────────── */}
+      {/* ── Browse by Category ───────────────────── */}
       <section className="browse-section">
         <div className="section-header">
-          <h2 className="section-title">Browse by Meal Type</h2>
+          <h2 className="section-title">Browse by Category</h2>
           <span className="section-tag">Popular</span>
         </div>
         <div className="browse-grid">

@@ -1,40 +1,72 @@
-import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 
 export default function RecipeDetail() {
-  const { id } = useParams(); // gets the :id from the URL
-  const [meal, setMeal] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const meal = useLoaderData();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    async function fetchMeal() {
-      const res = await fetch(
-        `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`
-      );
-      const data = await res.json();
-      setMeal(data.meals[0]);
-      setLoading(false);
-    }
+  // ── Build ingredients list ──────────────────────────
+  const ingredients = Array.from({ length: 20 }, (_, i) => i + 1)
+    .map(i => ({
+      ingredient: meal[`strIngredient${i}`],
+      measure: meal[`strMeasure${i}`],
+    }))
+    .filter(item => item.ingredient && item.ingredient.trim() !== "");
 
-    fetchMeal();
-  }, [id]);
-
-  if (loading) return <p className="status-msg">Loading recipe...</p>;
-  if (!meal) return <p className="status-msg">Recipe not found.</p>;
+  // ── Split instructions into steps by line break ─────
+  const steps = meal.strInstructions
+    .split(/\r\n|\n|\r/)             // split by line breaks
+    .map(step => step.trim())        // remove extra spaces
+    .filter(step => step.length > 0); // remove empty lines
 
   return (
     <div className="detail-page">
+
+      {/* ── Back button ─────────────────────────── */}
       <button className="back-btn" onClick={() => navigate(-1)}>← Back</button>
+
+      {/* ── Top section: image + ingredients ────── */}
       <div className="detail-inner">
-        <img src={meal.strMealThumb} alt={meal.strMeal} className="detail-img" />
+
+        {/* Left: image */}
+        <div className="detail-img-wrapper">
+          <img
+            src={meal.strMealThumb}
+            alt={meal.strMeal}
+            className="detail-img"
+          />
+        </div>
+
+        {/* Right: name + meta + ingredients */}
         <div className="detail-info">
           <h1 className="detail-title">{meal.strMeal}</h1>
-          <p className="detail-meta">{meal.strCategory} — {meal.strArea}</p>
-          <h3>Instructions</h3>
-          <p className="detail-instructions">{meal.strInstructions}</p>
+          <p className="detail-meta">Category - {meal.strCategory}</p>
+           <p className="detail-meta">Area - {meal.strArea}</p>
+          <h2 className="detail-section-title">Ingredients</h2>
+          <ul className="ingredients-list">
+            {ingredients.map((item, index) => (
+              <li key={index} className="ingredient-item">
+                <span className="ingredient-measure">{item.measure}</span>
+                <span className="ingredient-name">{item.ingredient}</span>
+              </li>
+            ))}
+          </ul>
         </div>
+
       </div>
+
+      {/* ── Instructions - full width below ─────── */}
+      <div className="detail-instructions-section">
+        <h2 className="detail-section-title">Instructions</h2>
+        <ol className="instructions-list">
+          {steps.map((step, index) => (
+            <li key={index} className="instruction-step">
+        
+              <p className="step-text">{step}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+
     </div>
   );
 }

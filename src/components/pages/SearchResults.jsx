@@ -1,29 +1,44 @@
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
+import Spinner from "../Spinner";
+import ErrorMessage from "../ErrorMessage";
 
 export default function SearchResults() {
-    const[dsearchParams]=useSearchParams();
-    const query = searchParams.get("q");
+  const [searchParams] = useSearchParams();
+  const query = searchParams.get("q");
   const [meals, setMeals] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (!query) return;
 
-useEffect(() => {
-    async function fetchMeals(){
-        setLoading(true);
-        const res = await fetch(
-            `https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`
-        );
-        const data = await res.json();
-    setMeals(data.meals || []);
-    setLoading(false);
-    }
+    setLoading(true);
+    setError(null);
 
-      if (query) fetchMeals();
-  }, [query]); // re-runs every time query changes
-    
-   
+    fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`)
+      .then(res => {
+        if (!res.ok) throw new Error("Failed to fetch recipes");
+        return res.json();
+      })
+      .then(data => {
+        setMeals(data.meals ? data.meals : []);
+      })
+      .catch(err => {
+        console.error("Error fetching recipes:", err);
+        setError("Unable to fetch recipes. Please check your connection and try again.");
+        setMeals([]);
+      })
+      .finally(() => setLoading(false));
+  }, [query]);
+
+  if (loading) return <Spinner message="Searching for recipes..." />;
+  if (error) return <ErrorMessage message={error} />;
+  if (meals.length === 0) return (
+    <p className="status-msg">😕 No recipes found for "{query}". Try a different keyword!</p>
+  );
+
   return (
     <div className="results-page">
       <h2 className="results-title">Results for "{query}"</h2>
