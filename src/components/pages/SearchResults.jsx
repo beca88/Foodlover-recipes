@@ -6,6 +6,7 @@ import ErrorMessage from "../ErrorMessage";
 export default function SearchResults() {
   const [searchParams] = useSearchParams();
   const query = searchParams.get("q");
+  const type = searchParams.get("type");
   const [meals, setMeals] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -17,7 +18,16 @@ export default function SearchResults() {
     setLoading(true);
     setError(null);
 
-    fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`)
+    // ── choose correct API based on type ──────────────
+    const url = type === "area"
+      ? `https://www.themealdb.com/api/json/v1/1/filter.php?a=${query}`
+      : type === "category"
+      ? `https://www.themealdb.com/api/json/v1/1/filter.php?c=${query}`
+      : type === "ingredient"
+      ? `https://www.themealdb.com/api/json/v1/1/filter.php?i=${query}`
+      : `https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`;
+
+    fetch(url)
       .then(res => {
         if (!res.ok) throw new Error("Failed to fetch recipes");
         return res.json();
@@ -31,17 +41,30 @@ export default function SearchResults() {
         setMeals([]);
       })
       .finally(() => setLoading(false));
-  }, [query]);
+  }, [query, type]); // ← type added to dependency array
 
   if (loading) return <Spinner message="Searching for recipes..." />;
   if (error) return <ErrorMessage message={error} />;
   if (meals.length === 0) return (
-    <p className="status-msg">😕 No recipes found for "{query}". Try a different keyword!</p>
+    <p className="status-msg">
+      😕 No recipes found for "{query}". Try a different keyword!
+    </p>
   );
 
   return (
     <div className="results-page">
-      <h2 className="results-title">Results for "{query}"</h2>
+
+      {/* ── Results title changes based on type ─────── */}
+      <h2 className="results-title">
+        {type === "area"
+          ? `${query} Recipes`
+          : type === "category"
+          ? `${query} Recipes`
+          : type === "ingredient"
+          ? `Recipes with ${query}`
+          : `Results for "${query}"`}
+      </h2>
+
       <div className="results-grid">
         {meals.map((meal) => (
           <div
@@ -49,7 +72,11 @@ export default function SearchResults() {
             className="recipe-card"
             onClick={() => navigate(`/recipe/${meal.idMeal}`)}
           >
-            <img src={meal.strMealThumb} alt={meal.strMeal} className="recipe-card-img" />
+            <img
+              src={meal.strMealThumb}
+              alt={meal.strMeal}
+              className="recipe-card-img"
+            />
             <p className="recipe-card-name">{meal.strMeal}</p>
           </div>
         ))}

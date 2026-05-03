@@ -12,24 +12,46 @@ export default function Home() {
     }
   }
 
-  const areas = [
-    { name: "Asian", emoji: "🍜" },
-    { name: "Italian", emoji: "🍕" },
-    { name: "Japanese", emoji: "🍣" },
-    { name: "Western", emoji: "🥩" },
+  function handleAreaClick(name) {
+    navigate(`/search?q=${encodeURIComponent(name)}&type=area`);
+  }
+
+  function handleCategoryClick(name) {
+    navigate(`/search?q=${encodeURIComponent(name)}&type=category`);
+  }
+
+  function handleIngredientClick(name) {
+    navigate(`/search?q=${encodeURIComponent(name)}&type=ingredient`);
+  }
+
+  // ── Countries ───────────────────────────────────────
+  const countries = [
+    { name: "Chinese",  emoji: "🇨🇳" },
+    { name: "Indian",   emoji: "🇮🇳" },
+    { name: "Italian",  emoji: "🇮🇹" },
+    { name: "Japanese", emoji: "🇯🇵" },
+    { name: "Thai",     emoji: "🇹🇭" },
+    { name: "British",  emoji: "🇬🇧" },
   ];
 
+  // ── Ingredients ─────────────────────────────────────
   const ingredients = [
-    { name: "Beef", emoji: "🥩" },
     { name: "Chicken", emoji: "🍗" },
-    { name: "Pork", emoji: "🍖" },
-    { name: "Seafood", emoji: "🦐" },
+    { name: "Pork",    emoji: "🍖" },
+    { name: "Beef",    emoji: "🥩" },
+    { name: "Lamb",    emoji: "🐑" },
+    { name: "Salmon",  emoji: "🐟" },
+    { name: "Bacon",   emoji: "🥓" },
   ];
 
-  const vegetarian = [
-    { name: "Salad", emoji: "🥗" },
-    { name: "Soup", emoji: "🍲" },
-    { name: "Pasta", emoji: "🍝" },
+  // ── Categories ──────────────────────────────────────
+  const categories = [
+    { name: "Breakfast",   emoji: "🍳" },
+    { name: "Pasta",       emoji: "🍝" },
+    { name: "Seafood",     emoji: "🦐" },
+    { name: "Vegetarian",  emoji: "🥗" },
+    { name: "Starter",     emoji: "🥙" },
+    { name: "Side",        emoji: "🍚" },
   ];
 
   return (
@@ -44,7 +66,6 @@ export default function Home() {
           Search from thousands of recipes around the world 🌍
         </p>
 
-        {/* Hero search bar */}
         <form onSubmit={handleSearch} className="hero-search-form">
           <input
             type="text"
@@ -57,17 +78,21 @@ export default function Home() {
         </form>
       </section>
 
-      {/* ── Browse by Area ──────────────────────── */}
+      {/* ── Browse by Country ───────────────────── */}
       <section className="browse-section">
         <div className="section-header">
-          <h2 className="section-title">Browse by Area</h2>
-          <span className="section-tag">Country · Popular</span>
+          <h2 className="section-title">Browse by Country</h2>
+          <span className="section-tag">Popular</span>
         </div>
         <div className="browse-grid">
-          {areas.map((area) => (
-            <div key={area.name} className="browse-card">
-              <div className="browse-card-icon">{area.emoji}</div>
-              <p className="browse-card-name">{area.name}</p>
+          {countries.map((country) => (
+            <div
+              key={country.name}
+              className="browse-card"
+              onClick={() => handleAreaClick(country.name)}
+            >
+              <div className="browse-card-icon">{country.emoji}</div>
+              <p className="browse-card-name">{country.name}</p>
             </div>
           ))}
         </div>
@@ -79,11 +104,15 @@ export default function Home() {
       <section className="browse-section">
         <div className="section-header">
           <h2 className="section-title">Browse by Ingredient</h2>
-          <span className="section-tag">Meat</span>
+          <span className="section-tag">Popular</span>
         </div>
         <div className="browse-grid">
           {ingredients.map((item) => (
-            <div key={item.name} className="browse-card">
+            <div
+              key={item.name}
+              className="browse-card"
+              onClick={() => handleIngredientClick(item.name)}
+            >
               <div className="browse-card-icon">{item.emoji}</div>
               <p className="browse-card-name">{item.name}</p>
             </div>
@@ -100,8 +129,12 @@ export default function Home() {
           <span className="section-tag">Popular</span>
         </div>
         <div className="browse-grid">
-          {vegetarian.map((item) => (
-            <div key={item.name} className="browse-card">
+          {categories.map((item) => (
+            <div
+              key={item.name}
+              className="browse-card"
+              onClick={() => handleCategoryClick(item.name)}
+            >
               <div className="browse-card-icon">{item.emoji}</div>
               <p className="browse-card-name">{item.name}</p>
             </div>
