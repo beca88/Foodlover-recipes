@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import heroBg from "../../assets/rachel-park-hrlvr2ZlUNk-unsplash.jpg";
 
 export default function Home() {
   const [query, setQuery] = useState("");
@@ -58,7 +59,8 @@ export default function Home() {
     <div className="home">
 
       {/* ── Hero ──────────────────────────────────── */}
-      <section className="hero">
+      <section className="hero"
+      style={{ backgroundImage: `url(${heroBg})`}}>
         <h1 className="hero-title">
           Discover <span>Delicious</span> Recipes
         </h1>
