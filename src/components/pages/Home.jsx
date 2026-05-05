@@ -65,7 +65,7 @@ export default function Home() {
           Discover <span>Delicious</span> Recipes
         </h1>
         <p className="hero-tagline">
-          Search from thousands of recipes around the world 🌍
+          Search from popular recipes around the world 🌍
         </p>
 
         <form onSubmit={handleSearch} className="hero-search-form">
@@ -73,7 +73,7 @@ export default function Home() {
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search for a recipe e.g. Chicken..."
+            placeholder="Search for a recipe e.g. pizza..."
             className="hero-search-input"
           />
           <button type="submit" className="hero-search-btn">Search</button>
@@ -84,7 +84,7 @@ export default function Home() {
       <section className="browse-section">
         <div className="section-header">
           <h2 className="section-title">Browse by Country</h2>
-          <span className="section-tag">Popular</span>
+          <span className="section-tag">Recommended</span>
         </div>
         <div className="browse-grid">
           {countries.map((country) => (
