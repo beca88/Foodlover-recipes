@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import heroBg from "../../assets/rachel-park-hrlvr2ZlUNk-unsplash.jpg";
+import RandomRecipe from "../../components/RandomRecipe";
 
 export default function Home() {
   const [query, setQuery] = useState("");
@@ -27,12 +28,12 @@ export default function Home() {
 
   // ── Countries ───────────────────────────────────────
   const countries = [
-    { name: "Chinese",  emoji: "🇨🇳" },
-    { name: "Indian",   emoji: "🇮🇳" },
-    { name: "Italian",  emoji: "🇮🇹" },
-    { name: "Japanese", emoji: "🇯🇵" },
-    { name: "Thai",     emoji: "🇹🇭" },
-    { name: "British",  emoji: "🇬🇧" },
+    { name: "Chinese",  emoji: "🥟" },
+    { name: "India",   emoji: "🍛" },
+    { name: "Italian",  emoji: "🍕" },
+    { name: "Japanese", emoji: "🍱" },
+    { name: "Thai",     emoji: "🥡" },
+    { name: "British",  emoji: "🍟" },
   ];
 
   // ── Ingredients ─────────────────────────────────────
@@ -79,7 +80,9 @@ export default function Home() {
           <button type="submit" className="hero-search-btn">Search</button>
         </form>
       </section>
+<RandomRecipe />
 
+<div className="divider" />
       {/* ── Browse by Country ───────────────────── */}
       <section className="browse-section">
         <div className="section-header">
@@ -106,7 +109,7 @@ export default function Home() {
       <section className="browse-section">
         <div className="section-header">
           <h2 className="section-title">Browse by Ingredient</h2>
-          <span className="section-tag">Popular</span>
+          <span className="section-tag">Protein</span>
         </div>
         <div className="browse-grid">
           {ingredients.map((item) => (

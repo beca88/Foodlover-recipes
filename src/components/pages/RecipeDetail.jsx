@@ -54,7 +54,7 @@ export default function RecipeDetail() {
 
       </div>
 
-      {/* ── Instructions - full width below ─────── */}
+      {/* ── Instructions - ─────── */}
       <div className="detail-instructions-section">
         <h2 className="detail-section-title">Instructions</h2>
         <ol className="instructions-list">

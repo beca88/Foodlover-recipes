@@ -91,10 +91,10 @@ a { text-decoration: none; color: inherit; }
 .search-form {
   display: flex;
   align-items: center;
-  border: 1px solid rgba(255,255,255,0.4);
-  border-radius: 6px;
+  border: 1.5px solid white;
+  border-radius: 4px;
   overflow: hidden;
-  max-width: 130px;
+  max-width: 140px;
 }
 
 .search-input {
@@ -102,7 +102,7 @@ a { text-decoration: none; color: inherit; }
   border: none;
   outline: none;
   padding: 6px 12px;
-  font-size: 13.5px;
+  font-size: 14px;
   color: #fff;
   width: 100%;
 }
@@ -275,6 +275,52 @@ a { text-decoration: none; color: inherit; }
   margin: 1rem 0 2.5rem;
 }
 
+/* ── Random Recipe ─────────────────────────────────── */
+.random-section {
+  margin-bottom: 2.5rem;
+  padding: 0 1rem;
+}
+
+.random-grid {
+  display: grid;
+  grid-template-columns: 1fr; /* 1 col on mobile */
+  gap: 2rem;
+}
+
+.random-card {
+  background: #1a1a1a;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.random-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent);
+}
+
+.random-card-img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+.random-card-info { padding: 0.75rem; }
+
+.random-card-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.25rem;
+}
+
+.random-card-meta {
+  font-size: 12px;
+  color: var(--accent);
+}
+
 /* ════════════════════════════════════════════════════
    SEARCH RESULTS PAGE
 ════════════════════════════════════════════════════ */
@@ -382,7 +428,8 @@ a { text-decoration: none; color: inherit; }
 
 .detail-meta {
   color: var(--accent);
-  margin-bottom: 1rem;
+  margin-bottom: 0.2rem;
+  font-size: 12px;
 }
 
 /* ── Section titles ────────────────────────────────── */
@@ -433,15 +480,16 @@ a { text-decoration: none; color: inherit; }
 
 .instruction-step {
   display: flex;
-  gap: 1rem;
   align-items: flex-start;
-  padding: 0;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
 }
 
 .step-text {
-  color: var(--text-muted); /* ← fixed typo from var(--text--) */
-  font-size: 14px;
-  line-height: 1.7;
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.2;
   flex: 1;
 }
 
@@ -546,37 +594,24 @@ a { text-decoration: none; color: inherit; }
    TABLET — 600px+
 ════════════════════════════════════════════════════ */
 @media (min-width: 600px) {
-  .header-inner {
-    padding: 0 1.5rem;
-    height: 60px;
-    gap: 1rem;
-  }
-
+  /* Header */
+  .header-inner { padding: 0 1.5rem; height: 60px; gap: 1rem; }
   .logo-text { font-size: 20px; }
   .nav { gap: 1rem; }
   .nav-link { font-size: 14px; padding: 6px 12px; }
   .search-form { max-width: 200px; }
   .search-input { font-size: 13.5px; padding: 6px 12px; }
 
-  .detail-inner {
-    flex-direction: row;
-    align-items: stretch;
-    gap: 4rem;
-  }
-
-  .detail-img-wrapper {
-    width: 300px;
-    flex-shrink: 0;
-  }
-
-  .detail-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
+  /* Detail */
+  .detail-inner { flex-direction: row; align-items: stretch; gap: 4rem; }
+  .detail-img-wrapper { width: 300px; flex-shrink: 0; }
+  .detail-img { width: 100%; height: 100%; object-fit: cover; }
   .detail-info { overflow-y: auto; }
 
+  /* Random grid */
+  .random-grid { grid-template-columns: repeat(2, 1fr); }
+
+  /* Footer */
   .footer-inner { flex-direction: row; }
 }
 
@@ -584,14 +619,11 @@ a { text-decoration: none; color: inherit; }
    DESKTOP — 900px+
 ════════════════════════════════════════════════════ */
 @media (min-width: 900px) {
-  .header-inner {
-    padding: 0 2rem;
-    height: 64px;
-  }
-
+  .header-inner { padding: 0 2rem; height: 64px; }
   .logo-text { font-size: 22px; }
   .search-form { max-width: 250px; }
   .detail-img-wrapper { width: 350px; }
+  .random-grid { grid-template-columns: repeat(4, 1fr); }
 }
 
 /* ════════════════════════════════════════════════════
